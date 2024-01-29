@@ -8,7 +8,10 @@ function HomePage(props) {
     <Fragment>
       <Head>
         <title>Next Meetups</title>
-        <meta name="description" content="Browse a huge list of highly active Next Meetups."/>
+        <meta
+          name="description"
+          content="Browse a huge list of highly active Next Meetups."
+        />
       </Head>
       <MeetupList meetups={props.meetups} />
     </Fragment>
@@ -29,9 +32,7 @@ function HomePage(props) {
 
 export async function getStaticProps() {
   // perform any server side functions.
-  const client = await MongoClient.connect(
-    "mongodb+srv://kaushik19:golumolu@cluster0.avtkjgd.mongodb.net/meetups?retryWrites=true&w=majority"
-  );
+  const client = await MongoClient.connect(process.env.MONGO_URL);
   const db = client.db();
   const meetupCollection = db.collection("meetups");
   const meetups = await meetupCollection.find().toArray();
